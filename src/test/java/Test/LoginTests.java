@@ -29,7 +29,6 @@ assert:
 •	Verifikovati da se nakon pokušaja otvaranja /home rute, u url-u stranice javlja /login ruta
  */
 
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.github.javafaker.Faker;
@@ -42,7 +41,8 @@ public class LoginTests extends BaseTest {
         //Verifikovati da se u url-u stranice javlja ruta /login
 
         homePage.clickLoginButton();
-        Assert.assertTrue(loginPage.getDriver().getCurrentUrl().contains("login"));
+        String expResult = loginPage.getDriver().getCurrentUrl();
+        Assert.assertTrue(expResult.contains("login"));
     }
 
     @Test
@@ -69,13 +69,13 @@ public class LoginTests extends BaseTest {
         Faker faker = new Faker();
         String emailFake = faker.internet().emailAddress();
         String passwordFake = faker.internet().password();
-        loginPage.loginFaker(emailFake, passwordFake);
+        loginPage.loginMethod(emailFake, passwordFake);
         Assert.assertTrue(loginPage.getErrorMsg().getText().contains("User does not exists"));
         Assert.assertTrue(loginPage.getDriver().getCurrentUrl().contains("login"));
     }
     @Test
     public void displaysErrorsWhenPasswordIsWrong(){
-        /*Podaci: random email i password koristeći faker libarary
+        /*Podaci: email: admin@admin.com i proizvoljan password
         asssert:
         Verifikovati da greska sadrzi poruku Wrong password
         Verifikovati da se u url-u stranice javlja /login ruta
@@ -83,10 +83,20 @@ public class LoginTests extends BaseTest {
         homePage.clickLoginButton();
         Faker faker = new Faker();
         String passwordFake = faker.internet().password();
-        loginPage.loginFaker("admin@admin.com", passwordFake);
+        loginPage.loginMethod("admin@admin.com", passwordFake);
         Assert.assertTrue(loginPage.getErrorMsg().getText().contains("Wrong password"));
         Assert.assertTrue(loginPage.getDriver().getCurrentUrl().contains("login"));
-
+    }
+    @Test
+    public void login(){
+        /*Podaci: email: admin@admin.com, password: 12345
+        asssert:
+        Verifikovati da se u url-u stranice javlja /home ruta
+         */
+        homePage.clickLoginButton();
+        loginPage.loginMethod("admin@admin.com", "12345" );
+        String url = "https://vue-demo.daniel-avellaneda.com/home";
+        Assert.assertTrue(url.contains("home"));
     }
 
 
@@ -94,7 +104,8 @@ public class LoginTests extends BaseTest {
 
 
 
-// admin@admin.com
+
+
 
 
 

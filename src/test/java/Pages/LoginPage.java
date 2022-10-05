@@ -34,7 +34,7 @@ public class LoginPage extends BasePage {
     }
 
     //---------------------------------------------------------------
-    public void loginFaker(String email, String password){
+    public void loginMethod(String email, String password){
 
         getEmailField().sendKeys(email);
         getPasswordField().sendKeys(password);
