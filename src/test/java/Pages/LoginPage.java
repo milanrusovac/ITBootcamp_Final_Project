@@ -35,7 +35,8 @@ public class LoginPage extends BasePage {
 
     //---------------------------------------------------------------
     public void loginMethod(String email, String password){
-
+        getEmailField().clear();
+        getPasswordField().clear();
         getEmailField().sendKeys(email);
         getPasswordField().sendKeys(password);
 
