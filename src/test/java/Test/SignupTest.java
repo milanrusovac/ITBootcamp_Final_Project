@@ -74,6 +74,30 @@ public class SignupTest extends BaseTest{
         String actualResult = driver.getCurrentUrl();
         Assert.assertTrue(actualResult.contains(expResult));
     }
+    @Test
+    public void signup() throws InterruptedException {
+        /*Podaci:
+        name: Ime i prezime polaznika
+        email template: ime.prezime@itbootcamp.rs
+        password: 123456
+        confirm password: 123456
+        assert:
+        Verifikovati da dijalog za obavestenje sadrzi tekst IMPORTANT: Verify your account
+         */
+        homePage.clickSignUpButton();
+        signUpPage.singUpMethod("Milan Rusovac", "milan.rusovac@itbootcamp.rs", "123456", "123456");
+
+        String expResult = "IMPORTANT: Verify your account";
+        Thread.sleep(3000);
+        String actualResult = signUpPage.getInfoMsg().getText();
+        //Assert.assertTrue(actualResult.contains(expResult));
+        Assert.assertEquals(actualResult, expResult);
+
+
+
+    }
+
+
 
 
 
