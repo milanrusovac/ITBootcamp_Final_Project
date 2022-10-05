@@ -33,14 +33,14 @@ import org.testng.annotations.Test;
 
 public class SignupTest extends BaseTest{
 
-    @Test
+    @Test (priority = 1)
     public void visitsTheSignupPage(){
         //Verifikovati da se u url-u stranice javlja /signup ruta
         homePage.clickSignUpButton();
         String expResult = driver.getCurrentUrl();
         Assert.assertTrue(expResult.contains("signup"));
     }
-    @Test
+    @Test (priority = 2)
     public void checksInputTypes() {
     /*Verifikovati da polje za unos emaila za atribut type ima vrednost email
  	Verifikovati da polje za unos lozinke za atribut type ima vrednost password
@@ -57,7 +57,7 @@ public class SignupTest extends BaseTest{
         String actualResult3 = signUpPage.getConfirmPasswordField().getAttribute("type");
         Assert.assertEquals(actualResult3, expResult3);
     }
-    @Test
+    @Test (priority = 3)
     public void displaysErrorsWhenUserAlreadyExists(){
         /*name: Test Test
         email: admin@admin.com
@@ -74,7 +74,7 @@ public class SignupTest extends BaseTest{
         String actualResult = driver.getCurrentUrl();
         Assert.assertTrue(actualResult.contains(expResult));
     }
-    @Test
+    @Test (priority = 4)
     public void signup() throws InterruptedException {
         /*Podaci:
         name: Ime i prezime polaznika

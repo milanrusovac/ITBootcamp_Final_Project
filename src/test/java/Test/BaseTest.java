@@ -1,5 +1,6 @@
 package Test;
 
+import Pages.AdminCitiesPage;
 import Pages.HomePage;
 import Pages.LoginPage;
 import Pages.SignUpPage;
@@ -19,6 +20,7 @@ public abstract class BaseTest {
     protected HomePage homePage;
     protected LoginPage loginPage;
     protected SignUpPage signUpPage;
+    protected AdminCitiesPage adminCitiesPage;
 
     protected String baseUrl = "https://vue-demo.daniel-avellaneda.com/";
     protected WebDriver driver;
@@ -35,6 +37,7 @@ public abstract class BaseTest {
     homePage = new HomePage(driver, wait);
     loginPage = new LoginPage(driver, wait);
     signUpPage = new SignUpPage(driver, wait);
+    adminCitiesPage = new AdminCitiesPage(driver, wait);
 
 
     }
