@@ -12,6 +12,8 @@ public class AdminCitiesPage extends BasePage{
     protected By msgSaveButton =By.xpath("//*[@id=\"app\"]/div[5]/div/div/div[3]/button[2]/span");
     protected By successMsg = By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]");
     protected By editButton = By.xpath("//*[@id=\"edit\"]/span/i");
+    protected By searchField = By.id("search");
+    protected By magnifyIconButton = By.xpath("//*[@id=\"app\"]/div/main/div/div[2]/div/div[1]/div[1]/div[2]/div/div/div/div[3]/div/i");
 
     Faker faker = new Faker();
 
@@ -34,6 +36,14 @@ public class AdminCitiesPage extends BasePage{
     }
     public WebElement getEditButton() { return getDriver().findElement(editButton); }
 
+    public WebElement getSearchField() {
+        return getDriver().findElement(searchField);
+    }
+
+    public WebElement getMagnifyIconButton() {
+        return getDriver().findElement(magnifyIconButton);
+    }
+
     //---------------------------------------------------
     public void clickNewItemButton(){
         getNewItemButton().click();
@@ -48,6 +58,10 @@ public class AdminCitiesPage extends BasePage{
     public String fakeCityName(){
         String fakeCityName = faker.country().capital();
         return fakeCityName;
+    }
+    public void searchMethod(String name){
+        getSearchField().sendKeys(name);
+        getMagnifyIconButton().click();
     }
 
 
