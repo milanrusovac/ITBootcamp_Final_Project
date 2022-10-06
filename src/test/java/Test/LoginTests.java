@@ -6,6 +6,7 @@ Test #2: Checks input types
 assert:
 •	Verifikovati da polje za unos emaila za atribut type ima vrednost email
 •	Verifikovati da polje za unos lozinke za atribut type ima vrednost password
+
 Test #3: Displays errors when user does not exist
 Podaci: random email i password koristeći faker libarary
 asssert:
@@ -29,9 +30,12 @@ assert:
 •	Verifikovati da se nakon pokušaja otvaranja /home rute, u url-u stranice javlja /login ruta
  */
 
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.github.javafaker.Faker;
+
+import java.time.Duration;
 
 
 public class LoginTests extends BaseTest {
@@ -45,7 +49,6 @@ public class LoginTests extends BaseTest {
         String actualResult = driver.getCurrentUrl();
         Assert.assertTrue(actualResult.contains(expResult));
     }
-
     @Test (priority = 2)
     public void checksInputTypes(){
         /*Verifikovati da polje za unos emaila za atribut type ima vrednost email
@@ -82,9 +85,7 @@ public class LoginTests extends BaseTest {
         Verifikovati da se u url-u stranice javlja /login ruta
          */
         homePage.clickLoginButton();
-        Faker faker = new Faker();
-        String passwordFake = faker.internet().password();
-        loginPage.loginMethod("admin@admin.com", passwordFake);
+        loginPage.loginMethod("admin@admin.com", loginPage.fakePasswordMethod());
         Assert.assertTrue(loginPage.getErrorMsg().getText().contains("Wrong password"));
         Assert.assertTrue(loginPage.getDriver().getCurrentUrl().contains("login"));
     }
@@ -100,8 +101,7 @@ public class LoginTests extends BaseTest {
         String expResult = "home";
         String actualResult = driver.getCurrentUrl();
         Assert.assertTrue(actualResult.contains(expResult));
-
-
+        homePage.checkIfLogin();
     }
     @Test (priority = 6)
     public void Logout() throws InterruptedException {
@@ -112,27 +112,16 @@ public class LoginTests extends BaseTest {
         u url-u stranice javlja /login ruta
         (otvoriti sa driver.get home page i proveriti da li vas redirektuje na login)
          */
-        Thread.sleep(5000);
         homePage.clickLoginButton();
-        Thread.sleep(5000);
-        //loginPage.loginMethod("admin@admin.com", "12345" );
-        Thread.sleep(5000);
+        loginPage.loginMethod("admin@admin.com", "12345" );
         Assert.assertTrue(homePage.getLogoutButton().isDisplayed());
         homePage.clickLogoutButton();
-        String expResult = driver.getCurrentUrl();
-        Assert.assertTrue(expResult.contains("login"));
-        homePage.clickLoginButton();                     //???????
-        Assert.assertTrue(expResult.contains("login"));
+        String expResult = "login";
+        String actualResult = driver.getCurrentUrl();
+        Assert.assertTrue(actualResult.contains(expResult));
+        driver.get("https://vue-demo.daniel-avellaneda.com/home");
+        String expResult2 = "login";
+        String actualResult2 = driver.getCurrentUrl();
+        Assert.assertTrue(actualResult2.contains(expResult2));
     }
-
-
-
-
-
-
-
-
-
-
-
 }

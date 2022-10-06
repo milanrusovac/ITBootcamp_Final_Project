@@ -1,5 +1,6 @@
 package Pages;
 
+import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,6 +14,7 @@ public class SignUpPage extends BasePage {
     protected By singMeUpButton = By.xpath("//*[@id=\"app\"]/div/main/div/div[2]/div/div/div[2]/span/form/div/div[5]/button/span");
     protected By errorMsg2 = By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/ul/li");
     protected By infoMsg = By.xpath("//*[@id=\"app\"]/div[4]/div/div/div[1]");
+    Faker faker = new Faker();
 
     public SignUpPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
@@ -52,8 +54,11 @@ public class SignUpPage extends BasePage {
         getEmailField().sendKeys(email);
         getPasswordField().sendKeys(password);
         getConfirmPasswordField().sendKeys(confirmPassword);
-
         getSingMeUpButton().click();
+    }
+    public String fakeEmailMethod(){
+        String fakeEmail = faker.internet().emailAddress();
+        return fakeEmail;
     }
 
 

@@ -18,18 +18,22 @@ Podaci:
 assert:
 •	Verifikovati da greska sadrzi poruku E-mail already exists
 •	Verifikovati da se u url-u stranice javlja /signup ruta
+
 Test #4: Signup
 Podaci:
 •	name: Ime i prezime polaznika
-•	email template: ime.prezime@itbootcamp.rs
+•	email template: Signup - faker library email
 •	password: 12346
 •	confirm password: 123456
 assert:
 •	Verifikovati da dijalog za obavestenje sadrzi tekst IMPORTANT: Verify your account
  */
 
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.time.Duration;
 
 public class SignupTest extends BaseTest{
 
@@ -78,34 +82,21 @@ public class SignupTest extends BaseTest{
     public void signup() throws InterruptedException {
         /*Podaci:
         name: Ime i prezime polaznika
-        email template: ime.prezime@itbootcamp.rs
+        email template: Signup - faker library email
         password: 123456
         confirm password: 123456
         assert:
         Verifikovati da dijalog za obavestenje sadrzi tekst IMPORTANT: Verify your account
          */
         homePage.clickSignUpButton();
-        signUpPage.singUpMethod("Milan Rusovac", "milan.rusovac@itbootcamp.rs", "123456", "123456");
-
+        signUpPage.singUpMethod("Milan Rusovac",signUpPage.fakeEmailMethod(), "123456", "123456");
         String expResult = "IMPORTANT: Verify your account";
         Thread.sleep(3000);
         String actualResult = signUpPage.getInfoMsg().getText();
-        //Assert.assertTrue(actualResult.contains(expResult));
-        Assert.assertEquals(actualResult, expResult);
-
-
-
+        Assert.assertTrue(actualResult.contains(expResult));
     }
 
-
-
-
-
-
-
-
-
-    }
+}
 
 
 
