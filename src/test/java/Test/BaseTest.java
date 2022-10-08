@@ -28,6 +28,7 @@ public abstract class BaseTest {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
+
     @BeforeClass
     public void setup(){
     System.setProperty("webdriver.chrome.driver", "chromedriver.exe");

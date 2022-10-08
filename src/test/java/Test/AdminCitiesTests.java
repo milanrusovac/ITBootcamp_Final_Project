@@ -36,6 +36,7 @@ assert:
  */
 
 import com.github.javafaker.Faker;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -61,7 +62,6 @@ public class AdminCitiesTests extends BaseTest{
         Assert.assertTrue(actualResult.contains(expResult));
         Assert.assertTrue(homePage.getLogoutButton().isDisplayed());
         homePage.checkIfLogin();
-
     }
     @Test (priority = 2)
     public void createNewCity(){
@@ -73,53 +73,59 @@ public class AdminCitiesTests extends BaseTest{
         loginPage.loginMethod("admin@admin.com", "12345" );
         homePage.clickAdminButton();
         homePage.clickCitiesButton();
+
+        adminCitiesPage.checkRio();
+
         adminCitiesPage.clickNewItemButton();
-        //wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.withTimeout(Duration.ofSeconds(3));
-        adminCitiesPage.newCityMethod(adminCitiesPage.fakeCityName());
+        adminCitiesPage.newCityMethod(adminCitiesPage.getCityName());
         String  expResult = "Saved successfully";
         String actualResult = adminCitiesPage.getSuccessMsg().getText();
+        wait.withTimeout(Duration.ofSeconds(3));
         Assert.assertTrue(actualResult.contains(expResult));
-        //homePage.checkIfLogin();
-
+        homePage.checkIfLogin();
     }
-    @Test (priority = 3)
+    @Test (dependsOnMethods = {"createNewCity"})
     public void editCity(){
         /*Podaci: edituje se grad koji je u testu 2 kreiran na isto ime + - edited (primer: Beograd – Beograd edited)
         assert:
     	Verifikovati da poruka sadrzi tekst Saved successfully
          */
+
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
         homePage.clickAdminButton();
         homePage.clickCitiesButton();
-        adminCitiesPage.clickNewItemButton();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        adminCitiesPage.newCityMethod(adminCitiesPage.fakeCityName());
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        adminCitiesPage.clickEditButton();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        String cityNameEdited = adminCitiesPage.getMsgNameField().getText() + " - edited";
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        adminCitiesPage.getMsgNameField().clear();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        adminCitiesPage.newCityMethod(cityNameEdited);
 
+        adminCitiesPage.clickEditButton();
+        //String cityNameEdited = adminCitiesPage.getMsgNameField().getText() + " - edited";
+        wait.withTimeout(Duration.ofSeconds(3));
+        //adminCitiesPage.getMsgNameField().clear();
+        adminCitiesPage.getMsgNameField().click();
+        adminCitiesPage.getMsgNameField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
+        adminCitiesPage.newCityMethod(adminCitiesPage.getCityNameEdited());
+        homePage.checkIfLogin();
 
     }
-    @Test
+    @Test (dependsOnMethods = {"createNewCity", "editCity"} )
     public void searchCity(){
         /*Podaci: editovani grad iz testa #3
         assert:
      	Verifikovati da se u Name koloni prvog reda nalazi tekst iz pretrage
          */
-
-
-
-
+        homePage.clickLoginButton();
+        loginPage.loginMethod("admin@admin.com", "12345" );
+        homePage.clickAdminButton();
+        homePage.clickCitiesButton();
+        adminCitiesPage.searchMethod("Rio - edited");
+        String expResult = "Rio - edited";
+        String actualResult = adminCitiesPage.getSearchResultCityName().getText();
+        wait.withTimeout(Duration.ofSeconds(3));
+        Assert.assertEquals(actualResult, expResult);
+        homePage.checkIfLogin();
     }
 
-    @Test
+    @Test (dependsOnMethods = {"createNewCity", "editCity"} )
     public void deleteCity(){
         /*Podaci: editovani grad iz testa #3
         assert:
@@ -132,16 +138,25 @@ public class AdminCitiesTests extends BaseTest{
     	Sacekati da popu za prikaz poruke bude vidljiv
     	Verifikovati da poruka sadrzi tekst Deleted successfully
          */
+        homePage.clickLoginButton();
+        loginPage.loginMethod("admin@admin.com", "12345" );
+        homePage.clickAdminButton();
+        homePage.clickCitiesButton();
 
+        adminCitiesPage.searchMethod("Rio");
+        String expResult = "Rio";
+        String actualResult = adminCitiesPage.getSearchResultCityName().getText();
+        wait.withTimeout(Duration.ofSeconds(3));
+        Assert.assertTrue(actualResult.contains(expResult));
+        adminCitiesPage.clickSearchDeleteIcon();
+        adminCitiesPage.clickWarningMsgDeleteButton();
+        wait.withTimeout(Duration.ofSeconds(3));
+        String expResult2 = " Deleted successfully ";
+        String actualResult2 = adminCitiesPage.getSuccessDeleteMsg().getText();
+        //Assert.assertTrue(actualResult2.contains(expResult2));
+        Assert.assertEquals(actualResult2,expResult2);
 
-
-
-
+        //homePage.checkIfLogin();
     }
-
-
-
-
-
 
 }
