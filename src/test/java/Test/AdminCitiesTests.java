@@ -35,7 +35,9 @@ assert:
 •	Verifikovati da poruka sadrzi tekst Deleted successfully
  */
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -75,7 +77,7 @@ public class AdminCitiesTests extends BaseTest{
         homePage.clickCitiesButton();
         adminCitiesPage.clickNewItemButton();
         wait.withTimeout(Duration.ofSeconds(3));
-        adminCitiesPage.newCityMethod(adminCitiesPage.getCityName()); // Ime sa fekerom final
+        adminCitiesPage.newCityMethod(adminCitiesPage.getCityName());
         String  expResult = "Saved successfully";
         String actualResult = adminCitiesPage.getSuccessMsg().getText();
         wait.withTimeout(Duration.ofSeconds(3));
@@ -99,7 +101,7 @@ public class AdminCitiesTests extends BaseTest{
         wait.withTimeout(Duration.ofSeconds(3));
         adminCitiesPage.getMsgNameField().click();
         adminCitiesPage.getMsgNameField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
-        adminCitiesPage.newCityMethod(adminCitiesPage.getCityName() + " - edited");  // Ime sa fekerom final - edit
+        adminCitiesPage.newCityMethod(adminCitiesPage.getCityName() + " - edited");
 
         System.out.println(adminCitiesPage.getCityName());
         homePage.checkIfLogin();
@@ -149,11 +151,12 @@ public class AdminCitiesTests extends BaseTest{
         Assert.assertTrue(actualResult.contains(expResult));
         adminCitiesPage.clickSearchDeleteIcon();
         adminCitiesPage.clickWarningMsgDeleteButton();
-        wait.withTimeout(Duration.ofSeconds(3));
+        //wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"),"Save successfully CLOSE"));
+        //wait.withTimeout(Duration.ofSeconds(3));
         String expResult2 = " Deleted successfully ";
         String actualResult2 = adminCitiesPage.getSuccessDeleteMsg().getText();
         //Assert.assertTrue(actualResult2.contains(expResult2));
-        //Assert.assertEquals(actualResult2,expResult2);
+        Assert.assertEquals(actualResult2,expResult2);
 
         System.out.println(adminCitiesPage.getCityName());
         homePage.checkIfLogin();

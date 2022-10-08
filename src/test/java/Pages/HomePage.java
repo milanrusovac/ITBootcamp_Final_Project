@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
 public class HomePage extends BasePage {
-
+    protected By themeButton = By.xpath("//*[@id=\"app\"]/div/div/header/div/div[3]/div[1]/div/div/div/div[1]/div/div[1]");
     protected By loginButton = By.xpath("//*[@id=\"app\"]/div/div/header/div/div[3]/a[3]/span");
     protected By logoutButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]/span");
     protected By signUpButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[4]/span");
@@ -27,6 +27,8 @@ public class HomePage extends BasePage {
 }
     public HomePage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait); }
+
+    public WebElement getThemeButton() { return getDriver().findElement(themeButton); }
 
     public WebElement getLoginButton() {
         return getDriver().findElement(loginButton);
@@ -70,6 +72,7 @@ public class HomePage extends BasePage {
 
 
     //--------------------------------------------------------------------
+    public void clickThemeButton(){getThemeButton().click();}
     public void clickLoginButton(){getLoginButton().click();}
     public void clickLogoutButton(){getLogoutButton().click();}
     public void clickSignUpButton(){getSignUpButton().click();}

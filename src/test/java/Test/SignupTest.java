@@ -46,7 +46,8 @@ public class SignupTest extends BaseTest{
     }
     @Test (priority = 2)
     public void checksInputTypes() {
-    /*Verifikovati da polje za unos emaila za atribut type ima vrednost email
+    /*           svaki input sada za value atribut ima vrednost koja je uneta u okviru forme
+    Verifikovati da polje za unos emaila za atribut type ima vrednost email
  	Verifikovati da polje za unos lozinke za atribut type ima vrednost password
 	Verifikovati da polje za unos lozinke za potvrdu za atribut type ima vrednost password
      */

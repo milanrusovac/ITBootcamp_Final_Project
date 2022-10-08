@@ -53,8 +53,7 @@ public abstract class BaseTest {
 
     }
     @BeforeMethod
-    public void beforeMethod(){
-        driver.get(baseUrl);
-    }
+    public void beforeMethod(){driver.get(baseUrl);}
+
 
 }
