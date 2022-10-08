@@ -74,12 +74,13 @@ public class AdminCitiesTests extends BaseTest{
         homePage.clickAdminButton();
         homePage.clickCitiesButton();
         adminCitiesPage.clickNewItemButton();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        //wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.withTimeout(Duration.ofSeconds(3));
         adminCitiesPage.newCityMethod(adminCitiesPage.fakeCityName());
         String  expResult = "Saved successfully";
         String actualResult = adminCitiesPage.getSuccessMsg().getText();
         Assert.assertTrue(actualResult.contains(expResult));
-        homePage.checkIfLogin();
+        //homePage.checkIfLogin();
 
     }
     @Test (priority = 3)
@@ -120,6 +121,17 @@ public class AdminCitiesTests extends BaseTest{
 
     @Test
     public void deleteCity(){
+        /*Podaci: editovani grad iz testa #3
+        assert:
+    	U polje za pretragu uneti staro ime grada
+    	Sacekati da broj redova u tabeli bude 1
+    	Verifikovati da se u Name koloni prvog reda nalazi tekst iz pretrage
+    	Kliknuti na dugme Delete iz prvog reda
+    	Sacekati da se dijalog za brisanje pojavi
+    	Kliknuti na dugme Delete iz dijaloga
+    	Sacekati da popu za prikaz poruke bude vidljiv
+    	Verifikovati da poruka sadrzi tekst Deleted successfully
+         */
 
 
 

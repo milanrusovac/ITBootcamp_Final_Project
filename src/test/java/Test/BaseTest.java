@@ -1,9 +1,6 @@
 package Test;
 
-import Pages.AdminCitiesPage;
-import Pages.HomePage;
-import Pages.LoginPage;
-import Pages.SignUpPage;
+import Pages.*;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -25,6 +22,7 @@ public abstract class BaseTest {
     protected LoginPage loginPage;
     protected SignUpPage signUpPage;
     protected AdminCitiesPage adminCitiesPage;
+    protected MyProfilePage myProfilePage;
 
     protected String baseUrl = "https://vue-demo.daniel-avellaneda.com/";
     protected WebDriver driver;
@@ -39,10 +37,12 @@ public abstract class BaseTest {
     driver.manage().window().maximize();
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
+    wait = new WebDriverWait(driver, Duration.ofSeconds(3));
     homePage = new HomePage(driver, wait);
     loginPage = new LoginPage(driver, wait);
     signUpPage = new SignUpPage(driver, wait);
     adminCitiesPage = new AdminCitiesPage(driver, wait);
+    myProfilePage = new MyProfilePage(driver, wait);
 
 
     }

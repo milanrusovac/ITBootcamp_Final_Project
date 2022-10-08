@@ -16,9 +16,10 @@ public class ProfileTests extends BaseTest{
         Verifikovati da je prikazana poruka Profile saved successfuly
     	Verifikovati da svaki input sada za value atribut ima vrednost koja je uneta u okviru forme
          */
-        homePage.clickLoginButton();
-        loginPage.loginMethod("admin@admin.com", "12345" );
-
+        homePage.clickSignUpButton();
+        signUpPage.singUpMethod("Milan Rusovac",signUpPage.fakeEmailMethod(), "123456", "123456");
+        signUpPage.clickInfoMsgCloseButton();
+        homePage.clickMyProfileButton();
 
 
 

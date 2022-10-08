@@ -18,7 +18,8 @@ public class HomePage extends BasePage {
     protected By headerMsg = By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[1]/h1");
     protected By esButton = By.xpath("//*[@id=\"list-item-75\"]/div");
     protected By enButton = By.xpath("//*[@id=\"list-item-73\"]/div");
-    protected By frbutton = By.xpath("//*[@id=\"list-item-77\"]/div");
+    protected By frButton = By.xpath("//*[@id=\"list-item-77\"]/div");
+    protected By myProfileButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[3]/span");
 
 
     public HomePage(){
@@ -60,8 +61,13 @@ public class HomePage extends BasePage {
     }
 
     public WebElement getFrButton() {
-        return getDriver().findElement(frbutton);
+        return getDriver().findElement(frButton);
     }
+
+    public WebElement getMyProfileButton() {
+        return getDriver().findElement(myProfileButton);
+    }
+
 
     //--------------------------------------------------------------------
     public void clickLoginButton(){getLoginButton().click();}
@@ -73,6 +79,7 @@ public class HomePage extends BasePage {
     public void clickEsButton(){getEsButton().click();}
     public void clickEnButton(){getEnButton().click();}
     public void clickFrButton(){getFrButton().click();}
+    public void clickMyProfileButton(){getMyProfileButton().click();}
     public void checkIfLogin() {
         WebElement logoutButton = getDriver().findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]/span"));
         if (logoutButton.isDisplayed()) {

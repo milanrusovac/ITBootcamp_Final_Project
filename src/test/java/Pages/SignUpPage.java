@@ -14,6 +14,7 @@ public class SignUpPage extends BasePage {
     protected By singMeUpButton = By.xpath("//*[@id=\"app\"]/div/main/div/div[2]/div/div/div[2]/span/form/div/div[5]/button/span");
     protected By errorMsg2 = By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/ul/li");
     protected By infoMsg = By.xpath("//*[@id=\"app\"]/div[4]/div/div/div[1]");
+    protected By infoMsgCloseButton = By.xpath("//*[@id=\"app\"]/div[4]/div/div/div[3]/button/span");
     Faker faker = new Faker();
 
     public SignUpPage(WebDriver driver, WebDriverWait wait) {
@@ -46,6 +47,10 @@ public class SignUpPage extends BasePage {
         return getDriver().findElement(infoMsg);
     }
 
+    public WebElement getInfoMsgCloseButton() {
+        return getDriver().findElement(infoMsgCloseButton);
+    }
+
     //-----------------------------------------------------------------------------
     public void singUpMethod(String name, String email, String password, String confirmPassword){
         getEmailField().clear();
@@ -59,6 +64,9 @@ public class SignUpPage extends BasePage {
     public String fakeEmailMethod(){
         String fakeEmail = faker.internet().emailAddress();
         return fakeEmail;
+    }
+    public void clickInfoMsgCloseButton(){
+        getInfoMsgCloseButton().click();
     }
 
 

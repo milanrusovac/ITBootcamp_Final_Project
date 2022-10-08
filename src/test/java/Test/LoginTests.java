@@ -101,7 +101,7 @@ public class LoginTests extends BaseTest {
         String expResult = "home";
         String actualResult = driver.getCurrentUrl();
         Assert.assertTrue(actualResult.contains(expResult));
-        //homePage.checkIfLogin();
+        homePage.checkIfLogin();
     }
     @Test (priority = 6)
     public void Logout() throws InterruptedException {
