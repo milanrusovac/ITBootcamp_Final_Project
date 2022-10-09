@@ -29,9 +29,8 @@ public class LocaleTest extends BaseTest {
         driver.get("https://vue-demo.daniel-avellaneda.com");
         homePage.clickLanguageMenuButton();
         homePage.clickEsButton();
-        String expResult = "Página de aterrizaje";
         String actualResult = homePage.getHeaderMsg().getText();
-        Assert.assertEquals(actualResult, expResult);
+        Assert.assertEquals(actualResult, "Página de aterrizaje");
     }
     @Test
     public void setLocaleToEn(){
@@ -42,9 +41,8 @@ public class LocaleTest extends BaseTest {
         driver.get("https://vue-demo.daniel-avellaneda.com");
         homePage.clickLanguageMenuButton();
         homePage.clickEnButton();
-        String expResult = "Landing";
         String actualResult = homePage.getHeaderMsg().getText();
-        Assert.assertEquals(actualResult, expResult);
+        Assert.assertEquals(actualResult, "Landing");
     }
     @Test
     public void setLocaleToFr(){
@@ -55,8 +53,7 @@ public class LocaleTest extends BaseTest {
         driver.get("https://vue-demo.daniel-avellaneda.com");
         homePage.clickLanguageMenuButton();
         homePage.clickFrButton();
-        String expResult = "Page d'atterrissage";
         String actualResult = homePage.getHeaderMsg().getText();
-        Assert.assertEquals(actualResult, expResult);
+        Assert.assertEquals(actualResult, "Page d'atterrissage");
     }
 }

@@ -1,5 +1,6 @@
 package Pages;
 
+import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,10 +22,9 @@ public class HomePage extends BasePage {
     protected By frButton = By.xpath("//*[@id=\"list-item-77\"]/div");
     protected By myProfileButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[3]/span");
 
-
     public HomePage(){
 
-}
+    }
     public HomePage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait); }
 
@@ -70,7 +70,6 @@ public class HomePage extends BasePage {
         return getDriver().findElement(myProfileButton);
     }
 
-
     //--------------------------------------------------------------------
     public void clickThemeButton(){getThemeButton().click();}
     public void clickLoginButton(){getLoginButton().click();}
@@ -89,10 +88,4 @@ public class HomePage extends BasePage {
             logoutButton.click();
         }
     }
-
-
-
-
-
-
 }

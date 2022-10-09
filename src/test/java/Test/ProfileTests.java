@@ -27,30 +27,26 @@ public class ProfileTests extends BaseTest{
         wait.withTimeout(Duration.ofSeconds(3));
         myProfilePage.getListFirstCity().click();
 
-        myProfilePage.editProfile(myProfilePage.fakeNameMethod(), myProfilePage.fakePhoneMethod(), myProfilePage.fakeCountryMethod(),
-                "http://"+myProfilePage.fakeTwitterMethod()+".name", "http://"+myProfilePage.fakeGitHubMethod()+".biz");
+        myProfilePage.editProfile(myProfilePage.getFakeName(), myProfilePage.getFakePhone(), myProfilePage.getFakeCountry(),
+                                    myProfilePage.getFakeTwitter(), myProfilePage.getFakeGitHub());
 
-        String expResult = "Profile saved successfuly";
         String actualResult = myProfilePage.getSuccessMsg().getText();
-        Assert.assertTrue(actualResult.contains(expResult));
+        Assert.assertTrue(actualResult.contains("Profile saved successfuly"));
 
-        String expNameField = "text";
-        String actualNameField = myProfilePage.getNameField().getAttribute("type");
+        String expNameField = myProfilePage.getFakeName();
+        String actualNameField = myProfilePage.getNameField().getAttribute("value");
         Assert.assertEquals(actualNameField, expNameField);
-        String expPhoneField = "tel";
-        String actualPhoneField = myProfilePage.getPhoneField().getAttribute("type");
+        String expPhoneField = myProfilePage.getFakePhone();
+        String actualPhoneField = myProfilePage.getPhoneField().getAttribute("value");
         Assert.assertEquals(actualPhoneField,expPhoneField);
-        String expCityField = "text";
-        String actualCityField = myProfilePage.getCityField().getAttribute("type");
-        Assert.assertEquals(actualCityField, expCityField);
-        String expCountryField = "text";
-        String actualCountryField = myProfilePage.getCountryField().getAttribute("type");
+        String expCountryField = myProfilePage.getFakeCountry();
+        String actualCountryField = myProfilePage.getCountryField().getAttribute("value");
         Assert.assertEquals(actualCountryField, expCountryField);
-        String expTwitterField = "url";
-        String actualTwitterField = myProfilePage.getTwitterField().getAttribute("type");
+        String expTwitterField = myProfilePage.getFakeTwitter();
+        String actualTwitterField = myProfilePage.getTwitterField().getAttribute("value");
         Assert.assertEquals(actualTwitterField, expTwitterField);
-        String expGitHubField = "url";
-        String actualGitHubField = myProfilePage.getGitHubField().getAttribute("type");
+        String expGitHubField = myProfilePage.getFakeGitHub();
+        String actualGitHubField = myProfilePage.getGitHubField().getAttribute("value");
         Assert.assertEquals(actualGitHubField, expGitHubField);
     }
 }

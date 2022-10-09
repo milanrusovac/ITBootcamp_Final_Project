@@ -18,55 +18,70 @@ public class MyProfilePage extends BasePage {
     protected By listFirstCity = By.xpath("//*[@id=\"list-item-163-1\"]/div/div");
     protected By successMsg = By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div");
     Faker faker = new Faker();
+    protected String fakeName = faker.name().fullName();
+    protected String fakePhone = faker.phoneNumber().phoneNumber();
+    protected String fakeCountry = faker.country().name();
+    protected String fakeTwitter = "http://"+faker.name().firstName().toLowerCase()+".name";
+    protected String fakeGitHub = "http://"+faker.name().firstName().toLowerCase()+".biz";
+
     public MyProfilePage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
     }
 
-    public WebElement getNameField() {return getDriver().findElement(nameField);}
 
-    public WebElement getPhoneField() {return getDriver().findElement(phoneField);}
+    public WebElement getNameField() { return getDriver().findElement(nameField); }
 
-    public WebElement getCityField() {return getDriver().findElement(cityField);}
+    public WebElement getPhoneField() { return getDriver().findElement(phoneField); }
 
-    public WebElement getCountryField() {return getDriver().findElement(countryField);}
+    public WebElement getCityField() { return getDriver().findElement(cityField); }
 
-    public WebElement getTwitterField() {return getDriver().findElement(twitterField);}
+    public WebElement getCountryField() { return getDriver().findElement(countryField); }
 
-    public WebElement getGitHubField() {return getDriver().findElement(gitHubField);}
+    public WebElement getTwitterField() { return getDriver().findElement(twitterField); }
 
-    public WebElement getSaveButton() {return getDriver().findElement(saveButton);}
+    public WebElement getGitHubField() { return getDriver().findElement(gitHubField); }
 
-    public WebElement getListFirstCity() {return getDriver().findElement(listFirstCity);}
+    public WebElement getSaveButton() { return getDriver().findElement(saveButton); }
 
-    public WebElement getSuccessMsg() {return getDriver().findElement(successMsg);}
-    //----------------------------------------------------------
-    public void editProfile(String name, String phone, String country, String twitter, String gitHub){
+    public WebElement getListFirstCity() { return getDriver().findElement(listFirstCity); }
 
+    public WebElement getSuccessMsg() { return getDriver().findElement(successMsg); }
+
+    public String getFakeName() { return fakeName; }
+
+    public String getFakePhone() {
+        return fakePhone;
+    }
+
+    public String getFakeCountry() {
+        return fakeCountry;
+    }
+
+    public String getFakeTwitter() {
+        return fakeTwitter;
+    }
+
+    public String getFakeGitHub() {
+        return fakeGitHub;
+    }
+//--------------------------------------------------------------------------------
+    public void editProfile(String name, String phone, String country, String twitter, String gitHub) {
         getNameField().click();
         getNameField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getNameField().sendKeys(name);
-
         getPhoneField().click();
         getPhoneField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getPhoneField().sendKeys(phone);
-
         getCountryField().click();
         getCountryField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getCountryField().sendKeys(country);
-
         getTwitterField().click();
         getTwitterField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getTwitterField().sendKeys(twitter);
-
         getGitHubField().click();
         getGitHubField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getGitHubField().sendKeys(gitHub);
 
         getSaveButton().click();
     }
-    public String fakeNameMethod(){return faker.name().fullName();}
-    public String fakePhoneMethod(){return faker.phoneNumber().phoneNumber();}
-    public String fakeCountryMethod(){return faker.country().name();}
-    public String fakeTwitterMethod(){return faker.name().firstName().toLowerCase();}
-    public String fakeGitHubMethod(){return faker.name().firstName().toLowerCase();}
 }

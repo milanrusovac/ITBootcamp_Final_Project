@@ -33,8 +33,6 @@ assert:
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import com.github.javafaker.Faker;
-
 import java.time.Duration;
 
 
@@ -43,11 +41,9 @@ public class LoginTests extends BaseTest {
     @Test (priority = 1)
     public void visitsTheLoginPage(){
         //Verifikovati da se u url-u stranice javlja ruta /login
-
         homePage.clickLoginButton();
-        String expResult = "login";
         String actualResult = driver.getCurrentUrl();
-        Assert.assertTrue(actualResult.contains(expResult));
+        Assert.assertTrue(actualResult.contains("login"));
     }
     @Test (priority = 2)
     public void checksInputTypes(){
@@ -70,12 +66,11 @@ public class LoginTests extends BaseTest {
        Verifikovati da se u url-u stranice javlja /login ruta
          */
         homePage.clickLoginButton();
-        Faker faker = new Faker();
-        String emailFake = faker.internet().emailAddress();
-        String passwordFake = faker.internet().password();
-        loginPage.loginMethod(emailFake, passwordFake);
-        Assert.assertTrue(loginPage.getErrorMsg().getText().contains("User does not exists"));
-        Assert.assertTrue(loginPage.getDriver().getCurrentUrl().contains("login"));
+        loginPage.loginMethod(loginPage.getFakeEmail(), loginPage.getFakePassword());
+        String actualResult1 = loginPage.getErrorMsg().getText();
+        Assert.assertTrue(actualResult1.contains("User does not exists"));
+        String actualResult2 = loginPage.getDriver().getCurrentUrl();
+        Assert.assertTrue(actualResult2.contains("login"));
     }
     @Test (priority = 4)
     public void displaysErrorsWhenPasswordIsWrong(){
@@ -85,9 +80,11 @@ public class LoginTests extends BaseTest {
         Verifikovati da se u url-u stranice javlja /login ruta
          */
         homePage.clickLoginButton();
-        loginPage.loginMethod("admin@admin.com", loginPage.fakePasswordMethod());
-        Assert.assertTrue(loginPage.getErrorMsg().getText().contains("Wrong password"));
-        Assert.assertTrue(loginPage.getDriver().getCurrentUrl().contains("login"));
+        loginPage.loginMethod("admin@admin.com", loginPage.getFakePassword());
+        String actualResult1 = loginPage.getErrorMsg().getText();
+        Assert.assertTrue(actualResult1.contains("Wrong password"));
+        String actualResult2 = loginPage.getDriver().getCurrentUrl();
+        Assert.assertTrue(actualResult2.contains("login"));
     }
     @Test (priority = 5)
     public void login() throws InterruptedException {
@@ -98,13 +95,12 @@ public class LoginTests extends BaseTest {
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
         Thread.sleep(2000);
-        String expResult = "home";
         String actualResult = driver.getCurrentUrl();
-        Assert.assertTrue(actualResult.contains(expResult));
+        Assert.assertTrue(actualResult.contains("home"));
         homePage.checkIfLogin();
     }
     @Test (priority = 6)
-    public void Logout() throws InterruptedException {
+    public void Logout(){
         /*assert:
         Verifikovati da je dugme logout vidljivo na stranici
         Verifikovati da se u url-u stranice javlja /login ruta
@@ -116,12 +112,11 @@ public class LoginTests extends BaseTest {
         loginPage.loginMethod("admin@admin.com", "12345" );
         Assert.assertTrue(homePage.getLogoutButton().isDisplayed());
         homePage.clickLogoutButton();
-        String expResult = "login";
         String actualResult = driver.getCurrentUrl();
-        Assert.assertTrue(actualResult.contains(expResult));
+        Assert.assertTrue(actualResult.contains("login"));
+
         driver.get("https://vue-demo.daniel-avellaneda.com/home");
-        String expResult2 = "login";
         String actualResult2 = driver.getCurrentUrl();
-        Assert.assertTrue(actualResult2.contains(expResult2));
+        Assert.assertTrue(actualResult2.contains("login"));
     }
 }

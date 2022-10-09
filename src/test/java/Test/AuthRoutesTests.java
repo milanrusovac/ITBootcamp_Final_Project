@@ -32,9 +32,8 @@ public class AuthRoutesTests extends BaseTest {
     	Verifikovati da se u url-u stranice javlja ruta /login
          */
         driver.get("https://vue-demo.daniel-avellaneda.com/home");
-        String expResult = "login";
         String actualResult = driver.getCurrentUrl();
-        Assert.assertTrue(actualResult.contains(expResult));
+        Assert.assertTrue(actualResult.contains("login"));
     }
     @Test
     public void forbidsVisitsToProfileUrlIfNotAuthenticated(){
@@ -43,9 +42,8 @@ public class AuthRoutesTests extends BaseTest {
     	Verifikovati da se u url-u stranice javlja ruta /login
          */
         driver.get("https://vue-demo.daniel-avellaneda.com/profile");
-        String expResult = "login";
         String actualResult = driver.getCurrentUrl();
-        Assert.assertTrue(actualResult.contains(expResult));
+        Assert.assertTrue(actualResult.contains("login"));
     }
     @Test
     public void forbidsVisitsToAdminCitiesUrlIfNotAuthenticated(){
@@ -54,9 +52,8 @@ public class AuthRoutesTests extends BaseTest {
     	Verifikovati da se u url-u stranice javlja ruta /login
          */
         driver.get("https://vue-demo.daniel-avellaneda.com/admin/cities");
-        String expResult = "login";
         String actualResult = driver.getCurrentUrl();
-        Assert.assertTrue(actualResult.contains(expResult));
+        Assert.assertTrue(actualResult.contains("login"));
     }
     @Test
     public void forbidsVisitsToAdminUsersUrlIfNotAuthenticated(){
@@ -65,8 +62,7 @@ public class AuthRoutesTests extends BaseTest {
     	Verifikovati da se u url-u stranice javlja ruta /login
          */
         driver.get("https://vue-demo.daniel-avellaneda.com/admin/users");
-        String expResult = "login";
         String actualResult = driver.getCurrentUrl();
-        Assert.assertTrue(actualResult.contains(expResult));
+        Assert.assertTrue(actualResult.contains("login"));
     }
 }
