@@ -69,15 +69,19 @@ public class MyProfilePage extends BasePage {
         getNameField().click();
         getNameField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getNameField().sendKeys(name);
+
         getPhoneField().click();
         getPhoneField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getPhoneField().sendKeys(phone);
+
         getCountryField().click();
         getCountryField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getCountryField().sendKeys(country);
+
         getTwitterField().click();
         getTwitterField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getTwitterField().sendKeys(twitter);
+
         getGitHubField().click();
         getGitHubField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getGitHubField().sendKeys(gitHub);

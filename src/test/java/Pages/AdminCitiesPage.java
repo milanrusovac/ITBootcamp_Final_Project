@@ -18,7 +18,7 @@ public class AdminCitiesPage extends BasePage{
     protected By searchResultCityName = By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]");
     protected By searchResultDeleteIcon = By.xpath("//*[@id=\"delete\"]/span/i");
     protected By warningMsgDeleteButton = By.xpath("//*[@id=\"app\"]/div[5]/div/div/div[2]/button[2]");
-    protected By successDeleteMsg =By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div");
+    protected By successDeleteMsg =By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]");
     Faker faker = new Faker();
     protected final String cityName = faker.country().capital();
 
@@ -71,16 +71,15 @@ public class AdminCitiesPage extends BasePage{
     public void clickNewItemButton(){
         getNewItemButton().click();
     }
+    public void clickEditButton(){ getEditButton().click(); }
+    public void clickSearchDeleteIcon(){getSearchResultDeleteIcon().click();}
+    public void clickWarningMsgDeleteButton(){getWarningMsgDeleteButton().click();}
     public void newCityMethod(String name){
         getMsgNameField().sendKeys(name);
         getMsgSaveButton().click();
     }
-    public void clickEditButton(){ getEditButton().click(); }
     public void searchMethod(String name){
         getSearchField().sendKeys(name);
         getMagnifyIconButton().click();
     }
-    public void clickSearchDeleteIcon(){getSearchResultDeleteIcon().click();}
-    public void clickWarningMsgDeleteButton(){getWarningMsgDeleteButton().click();}
-
 }

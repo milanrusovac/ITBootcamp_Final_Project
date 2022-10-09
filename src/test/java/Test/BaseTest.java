@@ -1,21 +1,13 @@
 package Test;
 
 import Pages.*;
-import com.github.javafaker.Faker;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-
 import java.time.Duration;
-import java.util.List;
-
 
 public abstract class BaseTest {
     protected HomePage homePage;
@@ -28,13 +20,10 @@ public abstract class BaseTest {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-
     @BeforeClass
     public void setup(){
-    System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+    System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver.exe");
     driver = new ChromeDriver();
-    //driver.manage().deleteAllCookies();
-    //driver.get(("https://vue-demo.daniel-avellaneda.com/"));
     driver.manage().window().maximize();
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
@@ -45,7 +34,6 @@ public abstract class BaseTest {
     adminCitiesPage = new AdminCitiesPage(driver, wait);
     myProfilePage = new MyProfilePage(driver, wait);
 
-
     }
     @AfterClass
     public void afterClass(){
@@ -54,6 +42,4 @@ public abstract class BaseTest {
     }
     @BeforeMethod
     public void beforeMethod(){driver.get(baseUrl);}
-
-
 }

@@ -66,8 +66,4 @@ public class SignUpPage extends BasePage {
         getConfirmPasswordField().sendKeys(confirmPassword);
         getSingMeUpButton().click();
     }
-
-    public void clickInfoMsgCloseButton(){
-        getInfoMsgCloseButton().click();
-    }
 }
