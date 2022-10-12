@@ -27,13 +27,13 @@ public class AdminCitiesTests extends BaseTest{
         String actualResult = driver.getCurrentUrl();
         Assert.assertTrue(actualResult.contains("admin/cities"));
         Assert.assertTrue(homePage.getLogoutButton().isDisplayed());
-        homePage.checkIfLogin();
+        homePage.logoutIfLogin();
     }
     /**Data: random city using faker library
      assert:
      Verify that the message contains the text Saved successfully
      */
-    @Test (priority = 1)
+    @Test ()
     public void createNewCity(){
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
@@ -43,13 +43,13 @@ public class AdminCitiesTests extends BaseTest{
         adminCitiesPage.newCityMethod(adminCitiesPage.getCityName());
         String actualResult = adminCitiesPage.getSuccessMsg().getText();
         Assert.assertTrue(actualResult.contains("Saved successfully"));
-        homePage.checkIfLogin();
+        homePage.logoutIfLogin();
     }
     /**Data: the city created in test 2 with the same name is edited + - edited (example: Belgrade - Belgrade edited)
      assert:
      Verify that the message contains the text Saved successfully
      */
-    @Test (priority = 2, dependsOnMethods = {"createNewCity"})
+    @Test (dependsOnMethods = {"createNewCity"})
     public void editCity(){
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
@@ -62,13 +62,13 @@ public class AdminCitiesTests extends BaseTest{
         adminCitiesPage.newCityMethod(adminCitiesPage.getCityName() + " - edited");
         String actualResult = adminCitiesPage.getSuccessMsg().getText();
         Assert.assertTrue(actualResult.contains("Saved successfully"));
-        homePage.checkIfLogin();
+        homePage.logoutIfLogin();
     }
     /**Data: edited city from test #3
      assert:
      Verify that there is text from the search in the Name column of the first row
      */
-    @Test (priority = 3, dependsOnMethods = {"createNewCity", "editCity"} )
+    @Test (dependsOnMethods = {"createNewCity", "editCity"} )
     public void searchCity(){
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
@@ -77,7 +77,7 @@ public class AdminCitiesTests extends BaseTest{
         adminCitiesPage.searchMethod(adminCitiesPage.getCityName() + " - edited");
         String actualResult = adminCitiesPage.getSearchResultCityName().getText();
         Assert.assertEquals(actualResult, adminCitiesPage.getCityName() + " - edited");
-        homePage.checkIfLogin();
+        homePage.logoutIfLogin();
     }
     /**Data: edited city from test #3
      assert:
@@ -90,7 +90,7 @@ public class AdminCitiesTests extends BaseTest{
      Wait until the message display pop-up is visible
      Verify that the message contains the text Deleted successfully
      */
-    @Test (priority = 4, dependsOnMethods = {"createNewCity", "editCity"} )
+    @Test (priority = 1, dependsOnMethods = {"createNewCity", "editCity"} )
     public void deleteCity(){
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
@@ -98,17 +98,17 @@ public class AdminCitiesTests extends BaseTest{
         homePage.clickCitiesButton();
         adminCitiesPage.searchMethod(adminCitiesPage.getCityName());
         wait.withTimeout(Duration.ofSeconds(3));
-
         String actualResult = adminCitiesPage.getSearchResultCityName().getText();
         Assert.assertTrue(actualResult.contains(adminCitiesPage.getCityName()));
         adminCitiesPage.clickSearchDeleteIcon();
         wait.withTimeout(Duration.ofSeconds(3));
         adminCitiesPage.clickWarningMsgDeleteButton();
+
         wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"),"Deleted successfully\nCLOSE"));
         boolean deleteMsgSuccess = driver.findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")).getText().contains("Deleted successfully");
         Assert.assertTrue(deleteMsgSuccess);
 
-        homePage.checkIfLogin();
+        homePage.logoutIfLogin();
 
         /**
         wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"),"Deleted successfully\nCLOSE"));

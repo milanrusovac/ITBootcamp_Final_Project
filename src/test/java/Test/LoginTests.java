@@ -66,7 +66,7 @@ public class LoginTests extends BaseTest {
         Thread.sleep(2000);
         String actualResult = driver.getCurrentUrl();
         Assert.assertTrue(actualResult.contains("home"));
-        homePage.checkIfLogin();
+        homePage.logoutIfLogin();
     }
     /**assert:
      Verify that the logout button is visible on the page

@@ -47,6 +47,6 @@ public class ProfileTests extends BaseTest{
         String actualGitHubField = myProfilePage.getGitHubField().getAttribute("value");
         Assert.assertEquals(actualGitHubField, expGitHubField);
 
-        homePage.checkIfLogin();
+        homePage.logoutIfLogin();
     }
 }

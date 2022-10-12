@@ -38,14 +38,12 @@ public class LoginPage extends BasePage {
 
     //public String getFakeEmail() {return fakeEmail; }
 
-    public String getFakeEmail() {
-        return fakeEmail;
-    }
+    public String getFakeEmail() { return fakeEmail; }
 
     public String getFakePassword() { return fakePassword; }
 
     //---------------------------------------------------------------
-    public void loginMethod(String email, String password){
+    public void loginMethod(String email, String password) {
         getEmailField().clear();
         getPasswordField().clear();
         getEmailField().sendKeys(email);

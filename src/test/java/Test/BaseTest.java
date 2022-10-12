@@ -1,7 +1,6 @@
 package Test;
 
 import Pages.*;
-import com.github.javafaker.Faker;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -34,13 +33,9 @@ public abstract class BaseTest {
     signUpPage = new SignUpPage(driver, wait);
     adminCitiesPage = new AdminCitiesPage(driver, wait);
     myProfilePage = new MyProfilePage(driver, wait);
-
     }
     @AfterClass
-    public void afterClass(){
-    driver.quit();
-
-    }
+    public void afterClass(){ driver.quit(); }
     @BeforeMethod
-    public void beforeMethod(){driver.get(baseUrl);}
+    public void beforeMethod(){ driver.get(baseUrl); }
 }

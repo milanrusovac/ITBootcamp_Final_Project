@@ -1,6 +1,5 @@
 package Pages;
 
-import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -80,7 +79,7 @@ public class HomePage extends BasePage {
     public void clickEnButton(){getEnButton().click();}
     public void clickFrButton(){getFrButton().click();}
     public void clickMyProfileButton(){getMyProfileButton().click();}
-    public void checkIfLogin() {
+    public void logoutIfLogin() {
         WebElement logoutButton = getDriver().findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]/span"));
         if (logoutButton.isDisplayed()) {
             logoutButton.click();
