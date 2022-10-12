@@ -9,7 +9,7 @@ public class SignupTest extends BaseTest{
 
     /**Verifikovati da se u url-u stranice javlja /signup ruta
      */
-    @Test (priority = 1)
+    @Test
     public void visitsTheSignupPage(){
         homePage.clickSignUpButton();
         String actualResult = driver.getCurrentUrl();
@@ -20,7 +20,7 @@ public class SignupTest extends BaseTest{
      Verify that the password input field for the type attribute has the value password
      Verify that the confirmation password input field for the type attribute has the value password
      */
-    @Test (priority = 2)
+    @Test
     public void checksInputTypes() {
         homePage.clickSignUpButton();
         String expResult = "email";
@@ -41,7 +41,7 @@ public class SignupTest extends BaseTest{
      Verify that the error contains the message E-mail already exists
      Verify that the /signup route appears in the url of the page
      */
-    @Test (priority = 3)
+    @Test
     public void displaysErrorsWhenUserAlreadyExists(){
         homePage.clickSignUpButton();
         signUpPage.singUpMethod("Test Test","admin@admin.com", "123654", "123654");
@@ -58,7 +58,7 @@ public class SignupTest extends BaseTest{
      assert:
      Verify that the notification dialog contains the text IMPORTANT: Verify your account
      */
-    @Test (priority = 4)
+    @Test
     public void signup(){
         homePage.clickSignUpButton();
         signUpPage.singUpMethod("Milan Rusovac", signUpPage.getFakeEmail(), "123456", "123456");

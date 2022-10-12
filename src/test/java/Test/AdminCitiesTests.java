@@ -18,7 +18,7 @@ public class AdminCitiesTests extends BaseTest{
      Verify that the /admin/cities route appears in the url of the page
      Verify the existence of the logout button
      */
-    @Test (priority = 1)
+    @Test
     public void visitsTheAdminCitiesPageAndListCities(){
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
@@ -33,7 +33,7 @@ public class AdminCitiesTests extends BaseTest{
      assert:
      Verify that the message contains the text Saved successfully
      */
-    @Test (priority = 2)
+    @Test (priority = 1)
     public void createNewCity(){
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
@@ -49,7 +49,7 @@ public class AdminCitiesTests extends BaseTest{
      assert:
      Verify that the message contains the text Saved successfully
      */
-    @Test (priority = 3,dependsOnMethods = {"createNewCity"})
+    @Test (priority = 2, dependsOnMethods = {"createNewCity"})
     public void editCity(){
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
@@ -68,7 +68,7 @@ public class AdminCitiesTests extends BaseTest{
      assert:
      Verify that there is text from the search in the Name column of the first row
      */
-    @Test (priority = 4, dependsOnMethods = {"createNewCity", "editCity"} )
+    @Test (priority = 3, dependsOnMethods = {"createNewCity", "editCity"} )
     public void searchCity(){
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
@@ -90,20 +90,20 @@ public class AdminCitiesTests extends BaseTest{
      Wait until the message display pop-up is visible
      Verify that the message contains the text Deleted successfully
      */
-    @Test (priority = 5, dependsOnMethods = {"createNewCity", "editCity"} )
+    @Test (priority = 4, dependsOnMethods = {"createNewCity", "editCity"} )
     public void deleteCity(){
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
         homePage.clickAdminButton();
         homePage.clickCitiesButton();
-        adminCitiesPage.searchMethod(adminCitiesPage.getCityName()+" - edited");
+        adminCitiesPage.searchMethod(adminCitiesPage.getCityName());
         wait.withTimeout(Duration.ofSeconds(3));
+
         String actualResult = adminCitiesPage.getSearchResultCityName().getText();
-        Assert.assertTrue(actualResult.contains(adminCitiesPage.getCityName()+" - edited"));
+        Assert.assertTrue(actualResult.contains(adminCitiesPage.getCityName()));
         adminCitiesPage.clickSearchDeleteIcon();
         wait.withTimeout(Duration.ofSeconds(3));
         adminCitiesPage.clickWarningMsgDeleteButton();
-
         wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"),"Deleted successfully\nCLOSE"));
         boolean deleteMsgSuccess = driver.findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")).getText().contains("Deleted successfully");
         Assert.assertTrue(deleteMsgSuccess);

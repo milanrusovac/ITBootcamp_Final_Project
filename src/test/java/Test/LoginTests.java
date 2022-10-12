@@ -7,7 +7,7 @@ public class LoginTests extends BaseTest {
 
     /**Verify that the route /login appears in the url of the page
      */
-    @Test (priority = 1)
+    @Test
     public void visitsTheLoginPage(){
         homePage.clickLoginButton();
         String actualResult = driver.getCurrentUrl();
@@ -16,7 +16,7 @@ public class LoginTests extends BaseTest {
      /**Verify that the email input field for the type attribute has the value email
       Verify that the password input field for the type attribute has the value password
       */
-    @Test (priority = 2)
+    @Test
     public void checksInputTypes(){
         homePage.clickLoginButton();
         String expResult = "email";
@@ -32,7 +32,7 @@ public class LoginTests extends BaseTest {
      Verify that the error contains the message User does not exist
      Verify that the /login route appears in the url of the page
      */
-    @Test (priority = 3)
+    @Test
     public void displaysErrorsWhenUserDoesNotExist(){
         homePage.clickLoginButton();
         loginPage.loginMethod(loginPage.getFakeEmail(), loginPage.getFakePassword());
@@ -46,7 +46,7 @@ public class LoginTests extends BaseTest {
      Verify that the error contains the message Wrong password
      Verify that the /login route appears in the url of the page
      */
-    @Test (priority = 4)
+    @Test
     public void displaysErrorsWhenPasswordIsWrong(){
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", loginPage.getFakePassword());
@@ -59,7 +59,7 @@ public class LoginTests extends BaseTest {
      assert:
      Verify that the /home route appears in the url of the page
      */
-    @Test (priority = 5)
+    @Test
     public void login() throws InterruptedException {
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
@@ -75,7 +75,7 @@ public class LoginTests extends BaseTest {
      the /login route appears in the url of the page
      (open with driver.get home page and check if it redirects you to login)
      */
-    @Test (priority = 6)
+    @Test
     public void logout(){
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
