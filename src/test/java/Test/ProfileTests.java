@@ -5,14 +5,14 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 
 public class ProfileTests extends BaseTest{
+
+    /**Data: random data using the faker library
+     assert:
+     Verify that the message Profile saved successfully is displayed
+     Verify that each input now for the value attribute has the value entered within the form
+     */
     @Test
     public void editsProfile(){
-        /*Podaci: random podaci korišćenjem faker library-ja
-        assert:
-        Verifikovati da je prikazana poruka Profile saved successfuly
-    	Verifikovati da svaki input sada za value atribut ima vrednost koja je uneta u okviru forme
-         */
-        homePage.clickThemeButton();
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
         homePage.clickMyProfileButton();
@@ -46,5 +46,7 @@ public class ProfileTests extends BaseTest{
         String expGitHubField = myProfilePage.getFakeGitHub();
         String actualGitHubField = myProfilePage.getGitHubField().getAttribute("value");
         Assert.assertEquals(actualGitHubField, expGitHubField);
+
+        homePage.checkIfLogin();
     }
 }

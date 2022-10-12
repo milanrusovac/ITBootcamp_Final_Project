@@ -11,14 +11,15 @@ import java.time.Duration;
 
 public class AdminCitiesTests extends BaseTest{
 
+    /**Data:
+     admin email: admin@admin.com
+     admin password: 12345
+     assert:
+     Verify that the /admin/cities route appears in the url of the page
+     Verify the existence of the logout button
+     */
     @Test (priority = 1)
     public void visitsTheAdminCitiesPageAndListCities(){
-        /*admin email: admin@admin.com
-    	admin password: 12345
-        assert:
-    	Verifikovati da se u url-u stranice javlja /admin/cities ruta
-    	Verifikovati postojanje logut dugmeta
-         */
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
         homePage.clickAdminButton();
@@ -28,12 +29,12 @@ public class AdminCitiesTests extends BaseTest{
         Assert.assertTrue(homePage.getLogoutButton().isDisplayed());
         homePage.checkIfLogin();
     }
+    /**Data: random city using faker library
+     assert:
+     Verify that the message contains the text Saved successfully
+     */
     @Test (priority = 2)
     public void createNewCity(){
-        /*Podaci: random grad korisćenjem faker library-ja
-        assert:
-     	Verifikovati da poruka sadrzi tekst Saved successfully
-         */
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
         homePage.clickAdminButton();
@@ -44,12 +45,12 @@ public class AdminCitiesTests extends BaseTest{
         Assert.assertTrue(actualResult.contains("Saved successfully"));
         homePage.checkIfLogin();
     }
+    /**Data: the city created in test 2 with the same name is edited + - edited (example: Belgrade - Belgrade edited)
+     assert:
+     Verify that the message contains the text Saved successfully
+     */
     @Test (priority = 3,dependsOnMethods = {"createNewCity"})
     public void editCity(){
-        /*Podaci: edituje se grad koji je u testu 2 kreiran na isto ime + - edited (primer: Beograd – Beograd edited)
-        assert:
-    	Verifikovati da poruka sadrzi tekst Saved successfully
-         */
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
         homePage.clickAdminButton();
@@ -63,12 +64,12 @@ public class AdminCitiesTests extends BaseTest{
         Assert.assertTrue(actualResult.contains("Saved successfully"));
         homePage.checkIfLogin();
     }
+    /**Data: edited city from test #3
+     assert:
+     Verify that there is text from the search in the Name column of the first row
+     */
     @Test (priority = 4, dependsOnMethods = {"createNewCity", "editCity"} )
     public void searchCity(){
-        /*Podaci: editovani grad iz testa #3
-        assert:
-     	Verifikovati da se u Name koloni prvog reda nalazi tekst iz pretrage
-         */
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
         homePage.clickAdminButton();
@@ -78,19 +79,19 @@ public class AdminCitiesTests extends BaseTest{
         Assert.assertEquals(actualResult, adminCitiesPage.getCityName() + " - edited");
         homePage.checkIfLogin();
     }
+    /**Data: edited city from test #3
+     assert:
+     Enter the old name of the city in the search field
+     Wait until the number of rows in the table is 1
+     Verify that there is text from the search in the Name column of the first row
+     Click on the Delete button from the first row
+     Wait for the deletion dialog to appear
+     Click the Delete button from the dialog
+     Wait until the message display pop-up is visible
+     Verify that the message contains the text Deleted successfully
+     */
     @Test (priority = 5, dependsOnMethods = {"createNewCity", "editCity"} )
-    public void deleteCity() throws InterruptedException {
-        /*Podaci: editovani grad iz testa #3
-        assert:
-    	U polje za pretragu uneti staro ime grada
-    	Sacekati da broj redova u tabeli bude 1
-    	Verifikovati da se u Name koloni prvog reda nalazi tekst iz pretrage
-    	Kliknuti na dugme Delete iz prvog reda
-    	Sacekati da se dijalog za brisanje pojavi
-    	Kliknuti na dugme Delete iz dijaloga
-    	Sacekati da popu za prikaz poruke bude vidljiv
-    	Verifikovati da poruka sadrzi tekst Deleted successfully
-         */
+    public void deleteCity(){
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
         homePage.clickAdminButton();
@@ -101,16 +102,27 @@ public class AdminCitiesTests extends BaseTest{
         Assert.assertTrue(actualResult.contains(adminCitiesPage.getCityName()+" - edited"));
         adminCitiesPage.clickSearchDeleteIcon();
         wait.withTimeout(Duration.ofSeconds(3));
-        Thread.sleep(3000);
         adminCitiesPage.clickWarningMsgDeleteButton();
-        //wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"),"Save successfully CLOSE"));
-        //wait.withTimeout(Duration.ofSeconds(3));
 
+        wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"),"Deleted successfully\nCLOSE"));
+        boolean deleteMsgSuccess = driver.findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")).getText().contains("Deleted successfully");
+        Assert.assertTrue(deleteMsgSuccess);
+
+        homePage.checkIfLogin();
+
+        /**
+        wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"),"Deleted successfully\nCLOSE"));
         String expResult2 = " Deleted successfully ";
         String actualResult2 = adminCitiesPage.getSuccessDeleteMsg().getText();
-        //Assert.assertTrue(actualResult2.contains(expResult2));
+        Assert.assertTrue(actualResult2.contains(expResult2));
         //Assert.assertEquals(actualResult2,expResult2);
+         */
 
-        //homePage.checkIfLogin();
+        /**
+        wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"),"Deleted successfully\nCLOSE"));
+        boolean actualResult3 = adminCitiesPage.getSuccessDeleteMsg().getText().contains("Deleted successfully");
+        Assert.assertTrue(actualResult3);
+        */
+
     }
 }

@@ -5,18 +5,19 @@ import org.testng.annotations.Test;
 
 public class LoginTests extends BaseTest {
 
+    /**Verify that the route /login appears in the url of the page
+     */
     @Test (priority = 1)
     public void visitsTheLoginPage(){
-        //Verifikovati da se u url-u stranice javlja ruta /login
         homePage.clickLoginButton();
         String actualResult = driver.getCurrentUrl();
         Assert.assertTrue(actualResult.contains("login"));
     }
+     /**Verify that the email input field for the type attribute has the value email
+      Verify that the password input field for the type attribute has the value password
+      */
     @Test (priority = 2)
     public void checksInputTypes(){
-        /*Verifikovati da polje za unos emaila za atribut type ima vrednost email
-        Verifikovati da polje za unos lozinke za atribut type ima vrednost password
-        */
         homePage.clickLoginButton();
         String expResult = "email";
         String actualResult = loginPage.getEmailField().getAttribute("type");
@@ -25,13 +26,14 @@ public class LoginTests extends BaseTest {
         String actualResult2 = loginPage.getPasswordField().getAttribute("type");
         Assert.assertEquals(actualResult2, expResult2);
     }
+
+    /**Data: random email and password using faker library
+     assert:
+     Verify that the error contains the message User does not exist
+     Verify that the /login route appears in the url of the page
+     */
     @Test (priority = 3)
     public void displaysErrorsWhenUserDoesNotExist(){
-       /*Podaci: random email i password koristeći faker libarary
-       asssert:
-       Verifikovati da greska sadrzi poruku User does not exists
-       Verifikovati da se u url-u stranice javlja /login ruta
-         */
         homePage.clickLoginButton();
         loginPage.loginMethod(loginPage.getFakeEmail(), loginPage.getFakePassword());
         String actualResult1 = loginPage.getErrorMsg().getText();
@@ -39,13 +41,13 @@ public class LoginTests extends BaseTest {
         String actualResult2 = loginPage.getDriver().getCurrentUrl();
         Assert.assertTrue(actualResult2.contains("login"));
     }
+    /**Data: email: admin@admin.com and arbitrary password
+     assert:
+     Verify that the error contains the message Wrong password
+     Verify that the /login route appears in the url of the page
+     */
     @Test (priority = 4)
     public void displaysErrorsWhenPasswordIsWrong(){
-        /*Podaci: email: admin@admin.com i proizvoljan password
-        asssert:
-        Verifikovati da greska sadrzi poruku Wrong password
-        Verifikovati da se u url-u stranice javlja /login ruta
-         */
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", loginPage.getFakePassword());
         String actualResult1 = loginPage.getErrorMsg().getText();
@@ -53,12 +55,12 @@ public class LoginTests extends BaseTest {
         String actualResult2 = loginPage.getDriver().getCurrentUrl();
         Assert.assertTrue(actualResult2.contains("login"));
     }
+    /**Data: email: admin@admin.com, password: 12345
+     assert:
+     Verify that the /home route appears in the url of the page
+     */
     @Test (priority = 5)
     public void login() throws InterruptedException {
-        /*Podaci: email: admin@admin.com, password: 12345
-        asssert:
-        Verifikovati da se u url-u stranice javlja /home ruta
-         */
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
         Thread.sleep(2000);
@@ -66,15 +68,15 @@ public class LoginTests extends BaseTest {
         Assert.assertTrue(actualResult.contains("home"));
         homePage.checkIfLogin();
     }
+    /**assert:
+     Verify that the logout button is visible on the page
+     Verify that the /login route appears in the url of the page
+     Verify that after attempting to open the /home route,
+     the /login route appears in the url of the page
+     (open with driver.get home page and check if it redirects you to login)
+     */
     @Test (priority = 6)
-    public void Logout(){
-        /*assert:
-        Verifikovati da je dugme logout vidljivo na stranici
-        Verifikovati da se u url-u stranice javlja /login ruta
-        Verifikovati da se nakon pokušaja otvaranja /home rute,
-        u url-u stranice javlja /login ruta
-        (otvoriti sa driver.get home page i proveriti da li vas redirektuje na login)
-         */
+    public void logout(){
         homePage.clickLoginButton();
         loginPage.loginMethod("admin@admin.com", "12345" );
         Assert.assertTrue(homePage.getLogoutButton().isDisplayed());

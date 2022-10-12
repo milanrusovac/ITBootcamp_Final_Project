@@ -8,12 +8,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MyProfilePage extends BasePage {
-    protected By nameField = By.id("name"); //text
-    protected By phoneField = By.id("phone"); //tel
-    protected By cityField = By.id("city"); //text
-    protected By countryField = By.id("country"); //text
-    protected By twitterField = By.id("urlTwitter"); //url
-    protected By gitHubField = By.id("urlGitHub"); //url
+    protected By nameField = By.id("name");
+    protected By phoneField = By.id("phone");
+    protected By cityField = By.id("city");
+    protected By countryField = By.id("country");
+    protected By twitterField = By.id("urlTwitter");
+    protected By gitHubField = By.id("urlGitHub");
     protected By saveButton = By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[2]/span/form/div/div/div[8]/button");
     protected By listFirstCity = By.xpath("//*[@id=\"list-item-163-1\"]/div/div");
     protected By successMsg = By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div");
@@ -23,7 +23,6 @@ public class MyProfilePage extends BasePage {
     protected String fakeCountry = faker.country().name();
     protected String fakeTwitter = "http://"+faker.name().firstName().toLowerCase()+".name";
     protected String fakeGitHub = "http://"+faker.name().firstName().toLowerCase()+".biz";
-
     public MyProfilePage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
     }

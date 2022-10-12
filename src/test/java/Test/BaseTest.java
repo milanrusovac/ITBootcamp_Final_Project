@@ -1,6 +1,7 @@
 package Test;
 
 import Pages.*;
+import com.github.javafaker.Faker;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -22,7 +23,7 @@ public abstract class BaseTest {
 
     @BeforeClass
     public void setup(){
-    System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver.exe");
+    System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
     driver = new ChromeDriver();
     driver.manage().window().maximize();
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

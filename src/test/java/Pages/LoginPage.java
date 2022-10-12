@@ -36,7 +36,11 @@ public class LoginPage extends BasePage {
         return getDriver().findElement(errorMsg);
     }
 
-    public String getFakeEmail() {return fakeEmail; }
+    //public String getFakeEmail() {return fakeEmail; }
+
+    public String getFakeEmail() {
+        return fakeEmail;
+    }
 
     public String getFakePassword() { return fakePassword; }
 
