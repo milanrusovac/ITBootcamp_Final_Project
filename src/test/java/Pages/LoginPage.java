@@ -43,7 +43,7 @@ public class LoginPage extends BasePage {
     public String getFakePassword() { return fakePassword; }
 
     //---------------------------------------------------------------
-    public void loginMethod(String email, String password) {
+    public void login(String email, String password) {
         getEmailField().clear();
         getPasswordField().clear();
         getEmailField().sendKeys(email);

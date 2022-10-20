@@ -60,7 +60,7 @@ public class SignUpPage extends BasePage {
     public WebElement getLogoutButtonOnSignUpPage() { return getDriver().findElement(logoutButtonOnSignUpPage); }
 
     //-----------------------------------------------------------------------------
-    public void singUpMethod(String name, String email, String password, String confirmPassword){
+    public void singUp(String name, String email, String password, String confirmPassword){
         getEmailField().clear();
         getPasswordField().clear();
         getNameField().sendKeys(name);

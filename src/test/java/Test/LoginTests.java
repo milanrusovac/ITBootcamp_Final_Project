@@ -35,7 +35,7 @@ public class LoginTests extends BaseTest {
     @Test
     public void displaysErrorsWhenUserDoesNotExist(){
         homePage.clickLoginButton();
-        loginPage.loginMethod(loginPage.getFakeEmail(), loginPage.getFakePassword());
+        loginPage.login(loginPage.getFakeEmail(), loginPage.getFakePassword());
         String actualResult1 = loginPage.getErrorMsg().getText();
         Assert.assertTrue(actualResult1.contains("User does not exists"));
         String actualResult2 = loginPage.getDriver().getCurrentUrl();
@@ -49,7 +49,7 @@ public class LoginTests extends BaseTest {
     @Test
     public void displaysErrorsWhenPasswordIsWrong(){
         homePage.clickLoginButton();
-        loginPage.loginMethod("admin@admin.com", loginPage.getFakePassword());
+        loginPage.login("admin@admin.com", loginPage.getFakePassword());
         String actualResult1 = loginPage.getErrorMsg().getText();
         Assert.assertTrue(actualResult1.contains("Wrong password"));
         String actualResult2 = loginPage.getDriver().getCurrentUrl();
@@ -62,7 +62,7 @@ public class LoginTests extends BaseTest {
     @Test
     public void login() throws InterruptedException {
         homePage.clickLoginButton();
-        loginPage.loginMethod("admin@admin.com", "12345" );
+        loginPage.login("admin@admin.com", "12345" );
         Thread.sleep(2000);
         String actualResult = driver.getCurrentUrl();
         Assert.assertTrue(actualResult.contains("home"));
@@ -78,7 +78,7 @@ public class LoginTests extends BaseTest {
     @Test
     public void logout(){
         homePage.clickLoginButton();
-        loginPage.loginMethod("admin@admin.com", "12345" );
+        loginPage.login("admin@admin.com", "12345" );
         Assert.assertTrue(homePage.getLogoutButton().isDisplayed());
         homePage.clickLogoutButton();
         String actualResult = driver.getCurrentUrl();

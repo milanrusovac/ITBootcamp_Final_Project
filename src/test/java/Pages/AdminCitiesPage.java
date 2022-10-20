@@ -73,11 +73,11 @@ public class AdminCitiesPage extends BasePage{
     public void clickEditButton(){ getEditButton().click(); }
     public void clickSearchDeleteIcon(){getSearchResultDeleteIcon().click();}
     public void clickWarningMsgDeleteButton(){getWarningMsgDeleteButton().click();}
-    public void newCityMethod(String name){
+    public void createNewCity(String name){
         getMsgNameField().sendKeys(name);
         getMsgSaveButton().click();
     }
-    public void searchMethod(String name){
+    public void searchCity(String name){
         getSearchField().sendKeys(name);
         getMagnifyIconButton().click();
     }

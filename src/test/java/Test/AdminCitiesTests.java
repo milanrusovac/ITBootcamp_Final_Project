@@ -21,7 +21,7 @@ public class AdminCitiesTests extends BaseTest{
     @Test
     public void visitsTheAdminCitiesPageAndListCities(){
         homePage.clickLoginButton();
-        loginPage.loginMethod("admin@admin.com", "12345" );
+        loginPage.login("admin@admin.com", "12345" );
         homePage.clickAdminButton();
         homePage.clickCitiesButton();
         String actualResult = driver.getCurrentUrl();
@@ -36,11 +36,11 @@ public class AdminCitiesTests extends BaseTest{
     @Test ()
     public void createNewCity(){
         homePage.clickLoginButton();
-        loginPage.loginMethod("admin@admin.com", "12345" );
+        loginPage.login("admin@admin.com", "12345" );
         homePage.clickAdminButton();
         homePage.clickCitiesButton();
         adminCitiesPage.clickNewItemButton();
-        adminCitiesPage.newCityMethod(adminCitiesPage.getCityName());
+        adminCitiesPage.createNewCity(adminCitiesPage.getCityName());
         String actualResult = adminCitiesPage.getSuccessMsg().getText();
         Assert.assertTrue(actualResult.contains("Saved successfully"));
         homePage.logoutIfLogin();
@@ -52,14 +52,14 @@ public class AdminCitiesTests extends BaseTest{
     @Test (dependsOnMethods = {"createNewCity"})
     public void editCity(){
         homePage.clickLoginButton();
-        loginPage.loginMethod("admin@admin.com", "12345" );
+        loginPage.login("admin@admin.com", "12345" );
         homePage.clickAdminButton();
         homePage.clickCitiesButton();
         adminCitiesPage.clickEditButton();
         wait.withTimeout(Duration.ofSeconds(3));
         adminCitiesPage.getMsgNameField().click();
         adminCitiesPage.getMsgNameField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
-        adminCitiesPage.newCityMethod(adminCitiesPage.getCityName() + " - edited");
+        adminCitiesPage.createNewCity(adminCitiesPage.getCityName() + " - edited");
         String actualResult = adminCitiesPage.getSuccessMsg().getText();
         Assert.assertTrue(actualResult.contains("Saved successfully"));
         homePage.logoutIfLogin();
@@ -71,10 +71,10 @@ public class AdminCitiesTests extends BaseTest{
     @Test (dependsOnMethods = {"createNewCity", "editCity"} )
     public void searchCity(){
         homePage.clickLoginButton();
-        loginPage.loginMethod("admin@admin.com", "12345" );
+        loginPage.login("admin@admin.com", "12345" );
         homePage.clickAdminButton();
         homePage.clickCitiesButton();
-        adminCitiesPage.searchMethod(adminCitiesPage.getCityName() + " - edited");
+        adminCitiesPage.searchCity(adminCitiesPage.getCityName() + " - edited");
         String actualResult = adminCitiesPage.getSearchResultCityName().getText();
         Assert.assertEquals(actualResult, adminCitiesPage.getCityName() + " - edited");
         homePage.logoutIfLogin();
@@ -93,10 +93,10 @@ public class AdminCitiesTests extends BaseTest{
     @Test (priority = 1, dependsOnMethods = {"createNewCity", "editCity"} )
     public void deleteCity(){
         homePage.clickLoginButton();
-        loginPage.loginMethod("admin@admin.com", "12345" );
+        loginPage.login("admin@admin.com", "12345" );
         homePage.clickAdminButton();
         homePage.clickCitiesButton();
-        adminCitiesPage.searchMethod(adminCitiesPage.getCityName());
+        adminCitiesPage.searchCity(adminCitiesPage.getCityName());
         wait.withTimeout(Duration.ofSeconds(3));
         String actualResult = adminCitiesPage.getSearchResultCityName().getText();
         Assert.assertTrue(actualResult.contains(adminCitiesPage.getCityName()));

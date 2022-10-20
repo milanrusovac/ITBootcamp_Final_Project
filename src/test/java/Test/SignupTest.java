@@ -44,7 +44,7 @@ public class SignupTest extends BaseTest{
     @Test
     public void displaysErrorsWhenUserAlreadyExists(){
         homePage.clickSignUpButton();
-        signUpPage.singUpMethod("Test Test","admin@admin.com", "123654", "123654");
+        signUpPage.singUp("Test Test","admin@admin.com", "123654", "123654");
         String actualResult = signUpPage.getErrorMsg2().getText();
         Assert.assertTrue(actualResult.contains("E-mail already exists"));
         String actualResult2 = driver.getCurrentUrl();
@@ -61,7 +61,7 @@ public class SignupTest extends BaseTest{
     @Test
     public void signup(){
         homePage.clickSignUpButton();
-        signUpPage.singUpMethod("Milan Rusovac", signUpPage.getFakeEmail(), "123456", "123456");
+        signUpPage.singUp("Milan Rusovac", signUpPage.getFakeEmail(), "123456", "123456");
         String expResult = "IMPORTANT: Verify your account";
         wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id=\"app\"]/div[4]/div/div/div[1]"),"IMPORTANT: Verify your account"));
         String actualResult = signUpPage.getInfoMsg().getText();

@@ -14,7 +14,7 @@ public class ProfileTests extends BaseTest{
     @Test
     public void editsProfile(){
         homePage.clickLoginButton();
-        loginPage.loginMethod("admin@admin.com", "12345" );
+        loginPage.login("admin@admin.com", "12345" );
         homePage.clickMyProfileButton();
 
         myProfilePage.getCityField().click();
